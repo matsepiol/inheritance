@@ -9,28 +9,40 @@
     <script type="text/javascript" src="js/pseudoclassical.js" defer></script>
     <script type="text/javascript" src="js/functional.js" defer></script>
     <script type="text/javascript" src="js/prototypal.js" defer></script>
+    <script type="text/javascript" src="js/main.js" defer></script>
   </head>
 
   <body>
     <h1> Application which uses 3 different kinds of inheritance. </h1>
 
-    <select name="select" id="inheritance-type">
-      <option value="pseudoclassical" onclick="pseudoclassical.init();" selected>Pseudoclassical</option> 
-      <option value="functional" onclick="functional.init();">Functional</option>
-      <option value="prototypal" onclick="prototypal.init();">Prototypal</option>
-    </select>
+    <div class="inheritance-picker">
+      <p>Choose type of inheritance:</p>
+      <select name="select" id="inheritance-type">
+        <option value="pseudoclassical" onclick="mainModule.generate();" selected>Pseudoclassical</option> 
+        <option value="functional" onclick="mainModule.generate();">Functional</option>
+        <option value="prototypal" onclick="mainModule.generate()">Prototypal</option>
+      </select>
+    </div>
 
-    <form>
-      <input id="team-name" type="text" name="fname" placeholder="Team Name"><br>
-    </form>
+    <div class="team-picker">
+      <p>Type team name:</p>
+      <form>
+        <input id="team-name" type="text" name="team-name" placeholder="Team Name"><br>
+      </form>
+    </div>
 
-    <select name="select" id="conference">
-      <option value="east" selected>East</option> 
-      <option value="west">West</option>
-    </select>
+    <div class="conference-picker">
+      <p>Pick conference:</p>
+      <select name="select" id="conference">
+        <option value="east" selected>East</option> 
+        <option value="west">West</option>
+      </select>
+    </div>
 
-    Inheritance type: <span class=inheritance-type></span>
-    <p class="generated-club"></p>
+    <button type="button" onclick="mainModule.generate();">Generate</button>
+
+    <h2> Inheritance type: <span class=inheritance-type></span> </h2>
+    <h3 class="generated-club"></h3>
 
   </body>
 </html>

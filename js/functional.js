@@ -7,7 +7,7 @@ var functional = (function() {
     var teamName = document.getElementById("team-name").value,
         teamConference = document.getElementById("conference").value;
 
-    var team = function(teamName) {
+    var team = function() {
       var club = {};
 
       club.name = teamName;
@@ -46,17 +46,17 @@ var functional = (function() {
       club = new eastTeam(teamName);
     }
 
-    document.getElementsByClassName("inheritance-type")[0].innerHTML = club.inheritance;
-    document.getElementsByClassName("generated-club")[0].innerHTML = club.composeTextMsg();
-  }
-
-
-  if (inheritanceType === 'functional') {
-    init();
+    if (club.name) {
+      document.getElementsByClassName("inheritance-type")[0].innerHTML = club.inheritance;
+      document.getElementsByClassName("generated-club")[0].innerHTML = club.composeTextMsg();
+    }
+    else {
+      document.getElementsByClassName("generated-club")[0].innerHTML = "You did not type team name.";
+    }
   }
 
   return {
     init: init
-  }
+  };
   
 })();

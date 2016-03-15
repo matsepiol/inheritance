@@ -42,17 +42,18 @@ var prototypal = (function() {
       });
     }
 
-    document.getElementsByClassName("inheritance-type")[0].innerHTML = club.inheritance;
-    document.getElementsByClassName("generated-club")[0].innerHTML = club.composeTextMsg();
-  }
-
-  if (inheritanceType === 'prototypal') {
-    init();
+    if (club.name) {
+      document.getElementsByClassName("inheritance-type")[0].innerHTML = club.inheritance;
+      document.getElementsByClassName("generated-club")[0].innerHTML = club.composeTextMsg();
+    }
+    else {
+      document.getElementsByClassName("generated-club")[0].innerHTML = "You did not type team name.";
+    }
   }
 
   return {
     init: init
-  }
+  };
 
 })();
 

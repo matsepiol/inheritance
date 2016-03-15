@@ -35,7 +35,7 @@ var pseudoclassical = (function() {
     };
 
     var applyInheritance = function(child, parent) {
-      var tempObj = function(){};
+      var tempObj = function() {};
       tempObj.prototype = parent.prototype;
       child.prototype = new tempObj();
     };
@@ -51,16 +51,17 @@ var pseudoclassical = (function() {
       club = new eastTeam(teamName);
     }
 
-    document.getElementsByClassName("inheritance-type")[0].innerHTML = club.inheritance;
-    document.getElementsByClassName("generated-club")[0].innerHTML = club.composeTextMsg();
-  }
-
-  if (inheritanceType === 'pseudoclassical') {
-    init();
-  }
+    if (club.name) {
+      document.getElementsByClassName("inheritance-type")[0].innerHTML = club.inheritance;
+      document.getElementsByClassName("generated-club")[0].innerHTML = club.composeTextMsg();
+    }
+    else {
+      document.getElementsByClassName("generated-club")[0].innerHTML = "You did not type team name.";
+    }
+  };
 
   return {
     init: init
-  }
+  };
 
 })();
