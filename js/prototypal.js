@@ -1,11 +1,7 @@
+'use strict';
 var prototypal = (function() {
 
-  var inheritanceType = document.getElementById("inheritance-type").value;
-
-  var init = function() {
-
-    var teamName = document.getElementById("team-name").value,
-        teamConference = document.getElementById("conference").value;
+  var init = function(options) {
 
     var team = {
       name: "",
@@ -14,11 +10,11 @@ var prototypal = (function() {
       inheritance: "prototypal",
 
       winGame: function() {
-        console.log(this.name + " has won a game!");
+        window.console.log(this.name + " has won a game!");
       },
 
       composeTextMsg: function() {
-        return(this.name + " has won a " + this.conference + " conference finals in " + this.league + " :)" );
+        return(this.name + " has won " + this.conference + " conference finals in " + this.league + " :)");
       }
     };
 
@@ -31,14 +27,14 @@ var prototypal = (function() {
     });
 
     var club;
-    if (teamConference === 'east') {
+    if (options.teamConference === 'east') {
       club = Object.create(eastTeam, {
-        name: { value: teamName},
+        name: { value: options.teamName }
       });
     }
     else {
       club = Object.create(westTeam, {
-        name: { value: teamName},
+        name: { value: options.teamName }
       });
     }
 
@@ -49,7 +45,7 @@ var prototypal = (function() {
     else {
       document.getElementsByClassName("generated-club")[0].innerHTML = "You did not type team name.";
     }
-  }
+  };
 
   return {
     init: init

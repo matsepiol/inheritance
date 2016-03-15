@@ -13,36 +13,37 @@
   </head>
 
   <body>
-    <h1> Application which uses 3 different kinds of inheritance. </h1>
-
+    <h1>Application which uses 3 different kinds of inheritance.</h1>
     <div class="inheritance-picker">
       <p>Choose type of inheritance:</p>
-      <select name="select" id="inheritance-type">
-        <option value="pseudoclassical" onclick="mainModule.generate();" selected>Pseudoclassical</option> 
-        <option value="functional" onclick="mainModule.generate();">Functional</option>
-        <option value="prototypal" onclick="mainModule.generate()">Prototypal</option>
+      <select name="select" id="inheritance-type" onchange="mainModule.generate();">
+        <option value="pseudoclassical" selected>Pseudoclassical</option>
+        <option value="functional">Functional</option>
+        <option value="prototypal" >Prototypal</option>
       </select>
     </div>
-
+    <div class="predefined-teams" >
+      <p>Choose from predefined teams:</p>
+      <select name="select" id="predefined-teams-picker" onchange="mainModule.generate(value);">
+        <option selected disabled hidden></option>
+      </select>
+    </div>
     <div class="team-picker">
-      <p>Type team name:</p>
+      <p>or type team name:</p>
       <form>
         <input id="team-name" type="text" name="team-name" placeholder="Team Name"><br>
       </form>
     </div>
-
     <div class="conference-picker">
-      <p>Pick conference:</p>
-      <select name="select" id="conference">
-        <option value="east" selected>East</option> 
+      <p>and pick conference:</p>
+      <select name="select" id="conference" onchange="mainModule.generate();">
+        <option value="east">East</option>
         <option value="west">West</option>
       </select>
     </div>
-
     <button type="button" onclick="mainModule.generate();">Generate</button>
-
-    <h2> Inheritance type: <span class=inheritance-type></span> </h2>
+    <h2>Inheritance type: <span class=inheritance-type></span></h2>
     <h3 class="generated-club"></h3>
-
   </body>
+  
 </html>

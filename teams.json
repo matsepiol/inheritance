@@ -1,0 +1,20 @@
+{
+  "teams":[
+    {
+      "name":"Boston Celtics",
+      "conference":"east"
+    },
+    {
+      "name":"Los Angeles Clippers", 
+      "conference":"west"
+    },
+    {
+      "name":"Miami Heat", 
+      "conference":"east"
+    },
+    {
+      "name":"Dallas Maverics", 
+      "conference":"west"
+    }
+  ]
+}

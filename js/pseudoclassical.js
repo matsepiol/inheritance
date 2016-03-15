@@ -1,11 +1,7 @@
+'use strict';
 var pseudoclassical = (function() {
 
-  var inheritanceType = document.getElementById("inheritance-type").value;
-
-  var init = function() {
-
-    var teamName = document.getElementById("team-name").value,
-        teamConference = document.getElementById("conference").value;
+  var init = function(options) {
 
     var team = function() {};
 
@@ -16,11 +12,11 @@ var pseudoclassical = (function() {
       inheritance: "pseudoclassical",
 
       winGame: function() {
-        console.log(this.name + " has won a game!");
+        window.console.log(this.name + " has won a game!");
       },
 
       composeTextMsg: function() {
-        return (this.name + " has won a " + this.conference + " conference finals in " + this.league + " :)");
+        return (this.name + " has won " + this.conference + " conference finals in " + this.league + " :)");
       }
     };
 
@@ -44,11 +40,11 @@ var pseudoclassical = (function() {
     applyInheritance(westTeam, team);
 
     var club;
-    if (teamConference === 'west') {
-      club = new westTeam(teamName);
+    if (options.teamConference === 'west') {
+      club = new westTeam(options.teamName);
     }
     else {
-      club = new eastTeam(teamName);
+      club = new eastTeam(options.teamName);
     }
 
     if (club.name) {
