@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 var prototypal = (function() {
 
   var init = function(options) {
@@ -19,15 +19,15 @@ var prototypal = (function() {
     };
 
     var eastTeam = Object.create(team, {
-      conference: { value: 'east' }
+      conference: { value: "east" }
     });
 
     var westTeam = Object.create(team, {
-      conference: { value: 'west' }
+      conference: { value: "west" }
     });
 
     var club;
-    if (options.teamConference === 'east') {
+    if (options.teamConference === "east") {
       club = Object.create(eastTeam, {
         name: { value: options.teamName }
       });

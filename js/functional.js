@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 var functional = (function() {
 
   var init = function(options) {
@@ -24,18 +24,18 @@ var functional = (function() {
 
     var eastTeam = function(teamName) {
       var club = team(teamName);
-      club.conference = 'east';
+      club.conference = "east";
       return club;
     };
 
     var westTeam = function(teamName) {
       var club = team(teamName);
-      club.conference = 'west';
+      club.conference = "west";
       return club;
     };
 
     var club;
-    if (options.teamConference === 'west') {
+    if (options.teamConference === "west") {
       club = new westTeam(options.teamName);
     }
     else {

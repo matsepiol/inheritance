@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 var mainModule = (function() {
 
   var pseudoclassical = window.pseudoclassical,
@@ -11,7 +11,7 @@ var mainModule = (function() {
   getJSON.onreadystatechange = function () {
     if (getJSON.readyState == 4 && getJSON.status == "200") {
       //saving json to local storage
-      localStorage.setItem('predefinedTeams', getJSON.responseText);
+      localStorage.setItem("predefinedTeams", getJSON.responseText);
       setPredefinedTeams();
     }
   };
@@ -19,7 +19,7 @@ var mainModule = (function() {
 
   var setPredefinedTeams = function() {
     var predefinedTeamsPicker = document.getElementById("predefined-teams-picker"),
-        predefinedTeams = JSON.parse(localStorage.getItem('predefinedTeams'));
+        predefinedTeams = JSON.parse(localStorage.getItem("predefinedTeams"));
 
     for (var i = 0 ; i < predefinedTeams.teams.length ; i++) {
       var option = document.createElement("option"),
@@ -40,7 +40,7 @@ var mainModule = (function() {
         inheritanceWrapper = document.getElementById("inheritance-type");
 
     if (val) {
-      var predefinedTeams = JSON.parse(localStorage.getItem('predefinedTeams'));
+      var predefinedTeams = JSON.parse(localStorage.getItem("predefinedTeams"));
 
       for (var i = 0 ; i < predefinedTeams.teams.length ; i++) {
         var team = predefinedTeams.teams[i];
@@ -59,13 +59,13 @@ var mainModule = (function() {
       inheritanceType: inheritanceWrapper.value
     };
 
-    if (options.inheritanceType === 'pseudoclassical') {
+    if (options.inheritanceType === "pseudoclassical") {
       pseudoclassical.init(options);
     }
-    else if (options.inheritanceType === 'functional') {
+    else if (options.inheritanceType === "functional") {
       functional.init(options);
     }
-    else if (options.inheritanceType === 'prototypal') {
+    else if (options.inheritanceType === "prototypal") {
       prototypal.init(options);
     }
   }).call();

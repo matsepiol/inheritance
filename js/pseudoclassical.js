@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 var pseudoclassical = (function() {
 
   var init = function(options) {
@@ -20,31 +20,31 @@ var pseudoclassical = (function() {
       }
     };
 
-    var eastTeam = function(teamName) {
+    var EastTeam = function(teamName) {
       this.name = teamName;
-      this.conference = 'east';
+      this.conference = "east";
     };
 
-    var westTeam = function(teamName) {
+    var WestTeam = function(teamName) {
       this.name = teamName;
-      this.conference = 'west';
+      this.conference = "west";
     };
 
     var applyInheritance = function(child, parent) {
-      var tempObj = function() {};
-      tempObj.prototype = parent.prototype;
-      child.prototype = new tempObj();
+      var TempObj = function() {};
+      TempObj.prototype = parent.prototype;
+      child.prototype = new TempObj();
     };
 
-    applyInheritance(eastTeam, team);
-    applyInheritance(westTeam, team);
+    applyInheritance(EastTeam, team);
+    applyInheritance(WestTeam, team);
 
     var club;
-    if (options.teamConference === 'west') {
-      club = new westTeam(options.teamName);
+    if (options.teamConference === "west") {
+      club = new WestTeam(options.teamName);
     }
     else {
-      club = new eastTeam(options.teamName);
+      club = new EastTeam(options.teamName);
     }
 
     if (club.name) {
