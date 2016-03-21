@@ -5,31 +5,63 @@ var mainModule = (function() {
       functional = window.functional,
       prototypal = window.prototypal;
 
-  var getJSON = new XMLHttpRequest();
-  getJSON.overrideMimeType("application/json");
-  getJSON.open("GET", "teams.json", true);
-  getJSON.onreadystatechange = function () {
-    if (getJSON.readyState == 4 && getJSON.status == "200") {
-      //saving json to local storage
-      localStorage.setItem("predefinedTeams", getJSON.responseText);
-      setPredefinedTeams();
-    }
-  };
-  getJSON.send(null);
+  document.getElementById("team-name").value = "";
+
+  var loadJSON;
+  (loadJSON = function() {
+    var getJSON = new XMLHttpRequest();
+    getJSON.overrideMimeType("application/json");
+    getJSON.open("GET", "teams.json", true);
+    getJSON.onreadystatechange = function () {
+      if (getJSON.readyState == 4 && getJSON.status == "200") {
+        //saving json to local storage
+        if(!localStorage.predefinedTeams) {
+          localStorage.setItem("predefinedTeams", getJSON.responseText);
+        }
+        setPredefinedTeams();
+      }
+    };
+    getJSON.send(null);
+  }).call();
 
   var setPredefinedTeams = function() {
-    var predefinedTeamsPicker = document.getElementById("predefined-teams-picker"),
-        predefinedTeams = JSON.parse(localStorage.getItem("predefinedTeams"));
+    var predefinedTeams = JSON.parse(localStorage.getItem("predefinedTeams"));
 
     for (var i = 0 ; i < predefinedTeams.teams.length ; i++) {
-      var option = document.createElement("option"),
-          team = predefinedTeams.teams[i];
-
-      option.text = option.value = team.name;
+      var team = predefinedTeams.teams[i];
 
       //adding predefined teams to predefined teams picker in DOM
-      predefinedTeamsPicker.add(option);
+      createPredefinedList(team);
     }
+  };
+
+  //add predefined teams to list and options
+  var createPredefinedList = function(team) {
+    var list = document.getElementsByClassName("predefined-teams-list")[0].getElementsByTagName("ul")[0],
+        predefinedTeamsPicker = document.getElementById("predefined-teams-picker"),
+        option = document.createElement("option"),
+        newItem = document.createElement("li");
+
+    option.text = option.value = team.name;
+    predefinedTeamsPicker.add(option);
+    newItem.appendChild(document.createTextNode(team.name + " - " + team.conference + " conference"));
+    list.appendChild(newItem);
+  };
+
+  var clearLocalStorage = function() {
+    var listEl = document.getElementsByClassName("predefined-teams-list")[0].getElementsByTagName("li"),
+        optionEl = document.getElementById("predefined-teams-picker").getElementsByTagName("option"),
+        i;
+
+    localStorage.clear();
+    for (i = listEl.length - 1 ; i >= 0 ; i--) {
+      listEl[i].parentNode.removeChild(listEl[i]);
+    }
+
+    for (i = optionEl.length - 1 ; i >= 0 ; i--) {
+      optionEl[i].parentNode.removeChild(optionEl[i]);
+    }
+    loadJSON();
   };
 
   var generate;
@@ -37,13 +69,16 @@ var mainModule = (function() {
 
     var nameWrapper = document.getElementById("team-name"),
         conferenceWrapper = document.getElementById("conference"),
-        inheritanceWrapper = document.getElementById("inheritance-type");
+        inheritanceWrapper = document.getElementById("inheritance-type"),
+        predefinedTeams,
+        team,
+        i;
 
-    if (val) {
-      var predefinedTeams = JSON.parse(localStorage.getItem("predefinedTeams"));
+    if (val) { //if predefined
+      predefinedTeams = JSON.parse(localStorage.getItem("predefinedTeams"));
 
-      for (var i = 0 ; i < predefinedTeams.teams.length ; i++) {
-        var team = predefinedTeams.teams[i];
+      for (i = 0 ; i < predefinedTeams.teams.length ; i++) {
+        team = predefinedTeams.teams[i];
 
         //picking correct predefined team from local storage and setting the options accordingly
         if (team.name === val) {
@@ -51,6 +86,19 @@ var mainModule = (function() {
           conferenceWrapper.value = team.conference;
         }
       }
+    }
+    else if (nameWrapper.value) { //if new team, not predefined
+      var newTeam = {"name": nameWrapper.value, "conference": conferenceWrapper.value};
+      predefinedTeams = JSON.parse(localStorage.getItem("predefinedTeams"));
+
+      for (i = 0 ; i < predefinedTeams.teams.length ; i++) {
+        team = predefinedTeams.teams[i];
+        if (team.name === newTeam.name) return; 
+      }
+
+      predefinedTeams.teams.push(newTeam);
+      localStorage.setItem("predefinedTeams", JSON.stringify(predefinedTeams));
+      createPredefinedList(newTeam);
     }
 
     var options = {
@@ -71,7 +119,8 @@ var mainModule = (function() {
   }).call();
 
   return {
-    generate: generate
+    generate: generate,
+    clearLocalStorage: clearLocalStorage
   };
 
 })();
