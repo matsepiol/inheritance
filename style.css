@@ -1,3 +1,11 @@
+@import url(scss/fontello.css);
+@font-face {
+  font-family: 'fontello';
+  src: url("../font/fontello.eot?78424500");
+  src: url("../font/fontello.eot?78424500#iefix") format("embedded-opentype"), url("../font/fontello.woff2?78424500") format("woff2"), url("../font/fontello.woff?78424500") format("woff"), url("../font/fontello.ttf?78424500") format("truetype"), url("../font/fontello.svg?78424500#fontello") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
 * {
   margin: 10px 5px; }
 
@@ -19,7 +27,13 @@ ul {
 
 .predefined-teams-list {
   float: right;
-  font-family: 'Trebuchet MS', 'Lucida Grande', Verdana, Lucida, Geneva, Helvetica, Arial, sans-serif; }
+  font-family: 'Trebuchet MS', 'Lucida Grande', Verdana, Lucida, Geneva, Helvetica, Arial, sans-serif;
+  margin: 0 5px; }
+
+.icon-cancel {
+  cursor: pointer;
+  bottom: 4px;
+  position: relative; }
 
 .picker select {
   position: relative;

@@ -1,7 +1,7 @@
 "use strict";
 var prototypal = (function() {
 
-  var init = function(options) {
+  var composeTeam = function(options) {
 
     var team = {
       name: "",
@@ -38,6 +38,10 @@ var prototypal = (function() {
       });
     }
 
+    return club;
+  };
+
+  var writeInfo = function(club) {
     if (club.name) {
       document.getElementsByClassName("inheritance-type")[0].innerHTML = club.inheritance;
       document.getElementsByClassName("generated-club")[0].innerHTML = club.composeTextMsg();
@@ -48,7 +52,8 @@ var prototypal = (function() {
   };
 
   return {
-    init: init
+    composeTeam: composeTeam,
+    writeInfo: writeInfo
   };
 
 })();

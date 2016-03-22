@@ -1,7 +1,7 @@
 "use strict";
 var functional = (function() {
 
-  var init = function(options) {
+  var composeTeam = function(options) {
 
     var team = function() {
       var club = {};
@@ -41,7 +41,11 @@ var functional = (function() {
     else {
       club = new eastTeam(options.teamName);
     }
+    
+    return club;
+  };
 
+  var writeInfo = function(club) {
     if (club.name) {
       document.getElementsByClassName("inheritance-type")[0].innerHTML = club.inheritance;
       document.getElementsByClassName("generated-club")[0].innerHTML = club.composeTextMsg();
@@ -52,7 +56,8 @@ var functional = (function() {
   };
 
   return {
-    init: init
+    composeTeam: composeTeam,
+    writeInfo: writeInfo
   };
   
 })();
