@@ -46,9 +46,12 @@ var mainModule = (function() {
       var team = predefinedTeams.teams[i];
       if (team.name === deletedTeam.name) { 
         predefinedTeams.teams.splice(i, 1);
-        liItem.parentNode.removeChild(liItem);
-        optionItem.parentNode.removeChild(optionItem);
         localStorage.setItem("predefinedTeams", JSON.stringify(predefinedTeams));
+        liItem.classList.remove("show");
+        setTimeout(function() {
+          liItem.parentNode.removeChild(liItem);
+          optionItem.parentNode.removeChild(optionItem);
+        }, 500);
         return;
       }
     }
@@ -79,6 +82,9 @@ var mainModule = (function() {
     if (!team.fromJSON) { liItem.appendChild(deleteButton); }
     deleteButton.addEventListener("click", function() { deleteTeamfromLS(this, team); });
     list.appendChild(liItem);
+    setTimeout(function() {
+      liItem.classList.add("show");
+    }, 500);
   };
 
   var clearLocalStorage = function() {
