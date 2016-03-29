@@ -67,8 +67,6 @@ li {
 }
 
 .picker select {
-  -moz-appearance: none;
-  -webkit-appearance: none;
   appearance: none;
   background: #0088cc url(img/select-arrow.png) no-repeat 90% center;
   background-color: #000;
@@ -104,7 +102,6 @@ li {
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
-  -webkit-transition-duration: 0.4s;
   transition-duration: 0.4s;
 }
 

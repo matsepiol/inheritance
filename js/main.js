@@ -5,19 +5,19 @@ var mainModule = (function() {
       functional = window.functional,
       prototypal = window.prototypal;
 
-  document.getElementById("team-name").value = "";
+  document.getElementById('team-name').value = '';
 
   var loadJSON;
   (loadJSON = function() {
     var getJSON = new XMLHttpRequest();
-    getJSON.overrideMimeType("application/json");
-    getJSON.open("GET", "teams.json", true);
+    getJSON.overrideMimeType('application/json');
+    getJSON.open('GET', 'teams.json', true);
     getJSON.onreadystatechange = function () {
-      if (getJSON.readyState == 4 && getJSON.status == "200") {
+      if (getJSON.readyState == 4 && getJSON.status == '200') {
         //saving json to local storage
         if(!localStorage.predefinedTeams) {
           var teams = markTeamsFromJSON(getJSON.responseText);
-          localStorage.setItem("predefinedTeams", teams);
+          localStorage.setItem('predefinedTeams', teams);
         }
         setPredefinedTeams();
       }
@@ -37,17 +37,17 @@ var mainModule = (function() {
   };
 
   var deleteTeamfromLS = function(obj, deletedTeam) {
-    var predefinedTeams = JSON.parse(localStorage.getItem("predefinedTeams")),
+    var predefinedTeams = JSON.parse(localStorage.getItem('predefinedTeams')),
         liItem = obj.parentElement,
-        optionItem = document.getElementById("predefined-teams-picker").querySelectorAll("option[value=" + deletedTeam.name + "]")[0];
+        optionItem = document.getElementById('predefined-teams-picker').querySelectorAll('option[value="' + deletedTeam.name.trim() + '"]')[0];
 
     //deleting item from ls, and removing li and option elements from DOM
     for (var i = 0 ; i < predefinedTeams.teams.length ; i++) {
       var team = predefinedTeams.teams[i];
       if (team.name === deletedTeam.name) { 
         predefinedTeams.teams.splice(i, 1);
-        localStorage.setItem("predefinedTeams", JSON.stringify(predefinedTeams));
-        liItem.classList.remove("show");
+        localStorage.setItem('predefinedTeams', JSON.stringify(predefinedTeams));
+        liItem.classList.remove('show');
         setTimeout(function() {
           liItem.parentNode.removeChild(liItem);
           optionItem.parentNode.removeChild(optionItem);
@@ -58,7 +58,7 @@ var mainModule = (function() {
   };
 
   var setPredefinedTeams = function() {
-    var predefinedTeams = JSON.parse(localStorage.getItem("predefinedTeams"));
+    var predefinedTeams = JSON.parse(localStorage.getItem('predefinedTeams'));
 
     for (var i = 0 ; i < predefinedTeams.teams.length ; i++) {
       var team = predefinedTeams.teams[i];
@@ -69,27 +69,27 @@ var mainModule = (function() {
 
   //add predefined teams to list and options
   var createPredefinedList = function(team) {
-    var list = document.getElementsByClassName("predefined-teams-list")[0].getElementsByTagName("ul")[0],
-        predefinedTeamsPicker = document.getElementById("predefined-teams-picker"),
-        optionItem = document.createElement("option"),
-        liItem = document.createElement("li"),
-        deleteButton = document.createElement("span");
+    var list = document.getElementsByClassName('predefined-teams-list')[0].getElementsByTagName('ul')[0],
+        predefinedTeamsPicker = document.getElementById('predefined-teams-picker'),
+        optionItem = document.createElement('option'),
+        liItem = document.createElement('li'),
+        deleteButton = document.createElement('span');
 
-    deleteButton.classList.add("icon-cancel");
-    optionItem.text = optionItem.value = team.name;
+    deleteButton.classList.add('icon-cancel');
+    optionItem.text = optionItem.value = team.name.trim();
     predefinedTeamsPicker.add(optionItem);
-    liItem.appendChild(document.createTextNode(team.name + " - " + team.conference + " conference"));
+    liItem.appendChild(document.createTextNode(team.name + ' - ' + team.conference + ' conference'));
     if (!team.fromJSON) { liItem.appendChild(deleteButton); }
-    deleteButton.addEventListener("click", function() { deleteTeamfromLS(this, team); });
+    deleteButton.addEventListener('click', function() { deleteTeamfromLS(this, team); });
     list.appendChild(liItem);
     setTimeout(function() {
-      liItem.classList.add("show");
+      liItem.classList.add('show');
     }, 500);
   };
 
   var clearLocalStorage = function() {
-    var listEl = document.getElementsByClassName("predefined-teams-list")[0].getElementsByTagName("li"),
-        optionEl = document.getElementById("predefined-teams-picker").getElementsByTagName("option"),
+    var listEl = document.getElementsByClassName('predefined-teams-list')[0].getElementsByTagName('li'),
+        optionEl = document.getElementById('predefined-teams-picker').getElementsByTagName('option'),
         i;
 
     localStorage.clear();
@@ -106,15 +106,15 @@ var mainModule = (function() {
   var generate;
   (generate = function(val) {
 
-    var nameWrapper = document.getElementById("team-name"),
-        conferenceWrapper = document.getElementById("conference"),
-        inheritanceWrapper = document.getElementById("inheritance-type"),
+    var nameWrapper = document.getElementById('team-name'),
+        conferenceWrapper = document.getElementById('conference'),
+        inheritanceWrapper = document.getElementById('inheritance-type'),
         predefinedTeams,
         team,
         i;
 
     if (val) { //if predefined
-      predefinedTeams = JSON.parse(localStorage.getItem("predefinedTeams"));
+      predefinedTeams = JSON.parse(localStorage.getItem('predefinedTeams'));
 
       for (i = 0 ; i < predefinedTeams.teams.length ; i++) {
         team = predefinedTeams.teams[i];
@@ -127,10 +127,10 @@ var mainModule = (function() {
       }
     }
     else if (nameWrapper.value) { //if new team, not predefined
-      var newTeam = {"name": nameWrapper.value, "conference": conferenceWrapper.value},
+      var newTeam = {'name': nameWrapper.value, 'conference': conferenceWrapper.value},
           isInLS = false;
 
-      predefinedTeams = JSON.parse(localStorage.getItem("predefinedTeams"));
+      predefinedTeams = JSON.parse(localStorage.getItem('predefinedTeams'));
 
       //check if this team already exist in ls
       for (i = 0 ; i < predefinedTeams.teams.length ; i++) {
@@ -140,27 +140,27 @@ var mainModule = (function() {
 
       if (!isInLS) {
         predefinedTeams.teams.push(newTeam);
-        localStorage.setItem("predefinedTeams", JSON.stringify(predefinedTeams)); //add new team to ls 
+        localStorage.setItem('predefinedTeams', JSON.stringify(predefinedTeams)); //add new team to ls 
         createPredefinedList(newTeam);
       }
     }
 
     var options = {
-      teamName: nameWrapper.value,
+      teamName: nameWrapper.value.trim(),
       teamConference: conferenceWrapper.value,
       inheritanceType: inheritanceWrapper.value
     };
 
     var club;
-    if (options.inheritanceType === "pseudoclassical") {
+    if (options.inheritanceType === 'pseudoclassical') {
       club = pseudoclassical.composeTeam(options);
       pseudoclassical.writeInfo(club);
     }
-    else if (options.inheritanceType === "functional") {
+    else if (options.inheritanceType === 'functional') {
       club = functional.composeTeam(options);
       functional.writeInfo(club);
     }
-    else if (options.inheritanceType === "prototypal") {
+    else if (options.inheritanceType === 'prototypal') {
       club = prototypal.composeTeam(options);
       prototypal.writeInfo(club);
     }
