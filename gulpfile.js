@@ -6,25 +6,24 @@ var autoprefixer = require('gulp-autoprefixer');
 gulp.task('sass', function() {
   return gulp.src('scss/style.scss')
     .pipe(sass()) 
-    .pipe(gulp.dest('./'))
-    .pipe(autoprefix())
+    .pipe(gulp.dest('scss'))
+    .pipe(autoprefixer())
+    .pipe(gulp.dest('autoprefix'))
     .pipe(browserSync.reload({
       stream: true
     }))
 });
 
-gulp.task('autoprefix', function(){
-  return gulp.src('./style.css')
+gulp.task('autoprefix', function() {
+  return gulp.src('scss/style.scss')
     .pipe(autoprefixer({
-      browsers: ['last 2 versions'],
-      cascade: false
+      browsers: ['last 2 versions', 'ie 8', 'ie 9']
     }))
-    .pipe(gulp.dest('./style.css'))
+    .pipe(gulp.dest('./'))
 });
 
 gulp.task('js', function() {
   return gulp.src('js/main.js')
-    .pipe(gulp.dest('./'))
     .pipe(browserSync.reload({
       stream: true
     }))
