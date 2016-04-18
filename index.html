@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Inheritance</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+    <link rel="stylesheet" href="autoprefix/style.css">
+    <script type="text/javascript" src="js/pseudoclassical.js" defer></script>
+    <script type="text/javascript" src="js/functional.js" defer></script>
+    <script type="text/javascript" src="js/prototypal.js" defer></script>
+    <script type="text/javascript" src="js/main.js" defer></script>
+  </head>
+
+  <body>
+    <h1>Application which uses 3 different kinds of inheritance.</h1>
+    <div class="predefined-teams-list">
+      <p>Predefined teams list:</p>
+      <ul></ul>
+    </div>
+    <div class="inheritance-picker picker">
+      <p>Choose type of inheritance:</p>
+      <select name="select" id="inheritance-type" class="icon-down-dir" onchange="mainModule.generate();">
+        <option value="pseudoclassical" selected>Pseudoclassical</option>
+        <option value="functional">Functional</option>
+        <option value="prototypal" >Prototypal</option>
+      </select>
+    </div>
+    <div class="predefined-teams picker">
+      <p>Choose from predefined teams:</p>
+      <select name="select" id="predefined-teams-picker" onchange="mainModule.generate(value);">
+        <option selected disabled hidden>Choose team</option>
+      </select>
+    </div>
+    <div class="team-picker">
+      <p>or type team name:</p>
+      <form>
+        <input id="team-name" class="team-name" type="text" name="team-name" placeholder="Team Name"><br>
+      </form>
+    </div>
+    <div class="conference-picker picker">
+      <p>and pick conference:</p>
+      <select name="select" id="conference">
+        <option value="east">East</option>
+        <option value="west">West</option>
+      </select>
+    </div>
+    <button class="button" type="button" onclick="mainModule.generate();">Add New Team</button>
+    <button class="button clear" type="button" onclick="mainModule.clearLocalStorage();">Clear Local Storage</button>
+    <h2>Inheritance type: <span class=inheritance-type></span></h2>
+    <h3 class="generated-club"></h3>
+  </body>
+  
+</html>
